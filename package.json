@@ -1,0 +1,22 @@
+{
+  "name": "twitter_timeline",
+  "version": "0.1.0",
+  "description": "Timeline for twitts of chosen user",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "twitter-timeline",
+    "twitter"
+  ],
+  "author": "Yaryna Shyika",
+  "license": "ISC",
+  "dependencies": {
+    "create-react-app": "^1.5.2",
+    "request": "^2.85.0",
+    "twit": "^2.2.9",
+    "url": "^0.11.0"
+  }
+}
