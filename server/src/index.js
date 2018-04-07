@@ -9,14 +9,14 @@ const config = require('../../etc/config');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
+app.use(express.static(__dirname + './../../client/dist'));
 
 app.get('/twits', (req, res) => {
     const Twitter = new Twit(config.twitterLogin);
     var userName = req.query.user_name;
     var options = {
             screen_name: userName,
-            count: 8,
-            trim_user: true
+            count: 100
     }
 
     Twitter.get('statuses/user_timeline', options, (err, data, response) => {
@@ -32,12 +32,3 @@ app.get('/twits', (req, res) => {
 const server = app.listen(config.serverPort, function () {
     console.log(`Server is up and running on port ${config.serverPort}`);
 });  
-
-
-
-
-
-
-//app.get('/', (req, res) => {
-//    
-//});

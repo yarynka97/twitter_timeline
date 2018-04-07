@@ -13,9 +13,11 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app">
-                <input id="input" type="text required" />
-                <button onClick={this.findTwits}>Show</button>
+            <div className="app card border-info mb-3">
+                <div className="card-header">
+                    <input id="input" type="text" required className="form-control form-control-sm" placeholder="Enter username, please" />
+                    <button className="btn btn-primary btn-sm" onClick={this.findTwits}>Show</button>
+                </div>
                 <Timeline
                     twits={this.state.twits}
                     className={this.state.class}
@@ -27,35 +29,40 @@ class App extends Component {
     findTwits = () => {
         var userName = document.getElementById("input").value;
         if (userName === '') {
-            var date = new Date();
-            this.setState({
-                twits: [{
-                    id: 1,
-                    date: 'now',
-                    user: {
-                        location: 'here'
-                    },
-                    text: 'Enter user_name, please'
-                }],
-                class: 'mistake'
-            });
+            this.mistakeMessage('Enter username, please');
         } else {
-            axios.get('http://localhost:8080/twits', {
+            axios.get(`${config.apiPrefix}/twits`, {
                 params: {
                     user_name: userName
                 }
             }).then(res => {
-                this.setState({
-                    twits: res.data,
-                    class: 'twit'
-                })
-            }).catch(err => {
-                console.log(err);
+                if (res.data[0].user.screen_name === userName) {
+                    this.setState({
+                        twits: res.data,
+                        class: 'twit card-body'
+                    });
+                }
+                }).catch(err => {
+                    this.mistakeMessage("This username doesn't exist. Please, enter real username");
             });
         }
+    }
+
+    mistakeMessage = (message) => {
+        var date = new Date();
+        this.setState({
+            twits: [{
+                id: 1,
+                created_at: date.toString(),
+                user: {
+                    screen_name:'Some mistake',
+                    location: 'here'
+                },
+                text: message
+            }],
+            class: 'mistake card-body'
+        });
     }
 }
 
 export default App;
-
-//${config.apiPrefix}
