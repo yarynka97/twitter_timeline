@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Tweet = require('./Tweet');
 
 const config = require('../../etc/config');
+const port = process.env.PORT || config.serverPort;
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,6 @@ app.get('/twits', (req, res) => {
 
 });
 
-const server = app.listen(config.serverPort, function () {
-    console.log(`Server is up and running on port ${config.serverPort}`);
+const server = app.listen(port, function () {
+    console.log(`Server is up and running on port ${port}`);
 });  
