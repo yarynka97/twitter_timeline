@@ -1,15 +1,29 @@
-﻿.app{
+﻿body {
+    background-color: #e4e4e4
+}
+
+button{
+    width: 18%
+}
+
+.app{
     width: 60%;
     margin-left: 20%;
 }
 
+.timeline {
+    background-color: #e4e4e4
+}
+
 #input{
-    width:70%;
+    width:80%;
     display: inline-block;
     margin-right:1%
 }
 
 .name {
+    display: inline-block;
+    margin-right:20px;
     font-family: arial;
 }
 
@@ -17,16 +31,17 @@
     color: #17a2b8;
 }
 
+.twit-margin{
+    margin-top:1%
+}
+
 .mistake .name{
     color: darkred;
 }
 
-.date{
-    font-size:small;
-}
-
-.location{
-    font-size:small;
+.date {
+    color: #cccccc;
+    font-size: small;
 }
 
 .text{

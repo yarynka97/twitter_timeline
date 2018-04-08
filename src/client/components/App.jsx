@@ -7,15 +7,16 @@ import Timeline from './Timeline';
 class App extends Component {
     state = {
         twits: [],
-        class: ''
+        class: '',
+        buttonDisabled: false
     }
 
     render() {
         return (
-            <div className="app card border-info mb-3">
+            <div className="app card mb-3">
                 <div className="card-header">
-                    <input id="input" type="text" required className="form-control form-control-sm" placeholder="Enter username, please" />
-                    <button className="btn btn-primary btn-sm" onClick={this.findTwits}>Show</button>
+                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="form-control form-control-sm" placeholder="Enter username, please" />
+                    <button disabled={this.state.buttonDisabled} className="btn btn-primary btn-sm" onClick={this.findTwits}>Show</button>
                 </div>
                 <Timeline
                     twits={this.state.twits}
@@ -25,7 +26,15 @@ class App extends Component {
         )
     }
 
+    handleEnter = (event) => {
+        if (event.charCode === 13 && !this.state.buttonDisabled)
+            this.findTwits();
+    }
+
     findTwits = () => {
+        this.setState({
+            buttonDisabled: true
+        });
         var userName = document.getElementById("input").value;
         if (userName === '') {
             this.mistakeMessage('Enter username, please');
@@ -39,24 +48,26 @@ class App extends Component {
                 if (res.data[0].user.screen_name === userName) {
                     this.setState({
                         twits: res.data,
-                        class: 'twit card-body'
+                        class: 'twit card-body',
+                        buttonDisabled: false
                     });
                 }
-                }).catch(err => {
-                    this.mistakeMessage("This username doesn't exist. Please, enter real username");
+            }).catch(err => {
+                    this.mistakeMessage("Server Error");
+                    this.setState({
+                        buttonDisabled: false
+                    });
             });
         }
     }
 
     mistakeMessage = (message) => {
-        var date = new Date();
         this.setState({
             twits: [{
                 id: 1,
-                created_at: date.toString(),
+                created_at: '',
                 user: {
-                    screen_name:'Some mistake',
-                    location: 'here'
+                    screen_name:'Some mistake'
                 },
                 text: message
             }],
