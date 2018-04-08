@@ -6,7 +6,7 @@ import Timeline from './Timeline';
 
 class App extends Component {
     state = {
-        twits: [],
+        tweets: [],
         class: '',
         buttonDisabled: false
     }
@@ -16,10 +16,10 @@ class App extends Component {
             <div className="app card mb-3">
                 <div className="card-header">
                     <input id="input" type="text" onKeyPress={this.handleEnter} required className="form-control form-control-sm" placeholder="Enter username, please" />
-                    <button disabled={this.state.buttonDisabled} className="btn btn-primary btn-sm" onClick={this.findTwits}>Show</button>
+                    <button disabled={this.state.buttonDisabled} className="btn btn-primary btn-sm" onClick={this.findTweets}>Show</button>
                 </div>
                 <Timeline
-                    twits={this.state.twits}
+                    tweets={this.state.tweets}
                     className={this.state.class}
                 />
             </div>
@@ -28,10 +28,10 @@ class App extends Component {
 
     handleEnter = (event) => {
         if (event.charCode === 13 && !this.state.buttonDisabled)
-            this.findTwits();
+            this.findTweets();
     }
 
-    findTwits = () => {
+    findTweets = () => {
         this.setState({
             buttonDisabled: true
         });
@@ -39,15 +39,16 @@ class App extends Component {
         if (userName === '') {
             this.mistakeMessage('Enter username, please');
         } else {
-            var tempUrl = 'https://timeline-for-tweets.herokuapp.com/twits'
+            var tempUrl = 'http://localhost:8080/tweets';//'https://timeline-for-tweets.herokuapp.com/tweets'
+                
             axios.get(tempUrl, {
                 params: {
                     user_name: userName
                 }
             }).then(res => {
-                if (res.data[0].user.screen_name === userName) {
+                if (res.data[0].screenName === userName) {
                     this.setState({
-                        twits: res.data,
+                        tweets: res.data,
                         class: 'twit card-body',
                         buttonDisabled: false
                     });
@@ -63,7 +64,7 @@ class App extends Component {
 
     mistakeMessage = (message) => {
         this.setState({
-            twits: [{
+            tweets: [{
                 id: 1,
                 created_at: '',
                 user: {

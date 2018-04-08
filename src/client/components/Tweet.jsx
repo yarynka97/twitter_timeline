@@ -6,11 +6,19 @@ class Tweet extends Component {
         return (
             <div className="card twit-margin">
                 <div className={this.props.className}>
-                    <p className="card-title font-weight-bold name">{this.props.twit.user.screen_name}</p>
-                    <span className="date card-subtitle mb-2">{this.formatDate(this.props.twit.created_at)}</span>
+                    <p className="card-title font-weight-bold name">{this.props.tweet.screenName}</p>
+                    <span className="date card-subtitle mb-2">{this.formatDate(this.props.tweet.date)}</span>
                     <div className="text font-weight-light card-text">
-                        {this.props.twit.text}
+                        {this.props.tweet.text}
                     </div>
+                    {
+                        this.props.tweet.imgUrl.map(url => {
+                            return (
+                                <img src={url} className="image" />
+                            )
+                        })
+
+                    }
                 </div>
             </div>
         )

@@ -16,12 +16,30 @@ var Tweet = function (userName, response) {
     }
 
     Twitter.get('statuses/user_timeline', options, (err, data, res) => {
-            if (!err && res.statusCode === 200) {
-                response.send(data);
+        if (!err && res.statusCode === 200) {
+            response.send(filterTweets(data));
             } else {
                 response.send(err);
             }
     });
+
+    function filterTweets(tweets) {
+        return tweets.map(tweet => {
+            var imgUrl = [];
+            if (tweet.entities.media) {
+                tweet.entities.media.forEach(img => {
+                    imgUrl.push(img.media_url);
+                });
+            }
+            return {
+                id: tweet.id,
+                screenName: tweet.user.screen_name,
+                date: tweet.created_at,
+                text: tweet.text,
+                imgUrl
+            };
+        });
+    }
 }
 
 module.exports = Tweet;

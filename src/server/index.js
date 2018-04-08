@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
 app.use(express.static(__dirname + './../../dist'));
 
-app.get('/twits', (req, res) => {
+app.get('/tweets', (req, res) => {
     var userName = req.query.user_name;
 
     Tweet(userName, res);

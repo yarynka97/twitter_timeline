@@ -27,6 +27,10 @@ button{
     font-family: arial;
 }
 
+.image{
+    width:100%
+}
+
 .twit .name {
     color: #17a2b8;
 }

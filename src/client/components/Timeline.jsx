@@ -4,15 +4,15 @@ import Tweet from './Tweet';
 
 class Timeline extends Component {
     render() {
-        let twits = this.props.twits;
+        let tweets = this.props.tweets;
         return (
             <div className="timeline">
                 {
-                    twits.map(twit => {
+                    tweets.map(tweet => {
                         return (
                             <Tweet
-                                key={twit.id}
-                                twit={twit}
+                                key={tweet.id}
+                                tweet={tweet}
                                 className={this.props.className}
                             />
                             )
