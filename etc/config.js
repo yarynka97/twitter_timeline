@@ -5,6 +5,5 @@
         access_token: '997571090-Rn68N42cf57zFRxiHAKNPoZquYehDB6suhpm8eIA',
         access_token_secret: 'GBPo2O5c3xroQTaCWFEoUo9EeQMXosd6J0gramjIjyU4m'
     },
-    serverPort: "8080",
-    apiPrefix: "http://localhost:8080"
+    serverPort: "8080"
 };

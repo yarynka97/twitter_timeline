@@ -31,7 +31,7 @@ class App extends Component {
         if (userName === '') {
             this.mistakeMessage('Enter username, please');
         } else {
-            axios.get(`${config.apiPrefix}/twits`, {
+            axios.get(`/twits`, {
                 params: {
                     user_name: userName
                 }
