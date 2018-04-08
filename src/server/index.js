@@ -3,8 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const Tweet = require('./Tweet');
 
-const config = require('../../etc/config');
-const port = process.env.PORT || config.serverPort;
+const port = process.env.PORT || 8080;
 
 const app = express();
 app.use(bodyParser.json());
