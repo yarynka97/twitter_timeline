@@ -31,7 +31,8 @@ class App extends Component {
         if (userName === '') {
             this.mistakeMessage('Enter username, please');
         } else {
-            axios.get(`/twits`, {
+            var tempUrl = 'https://timeline-for-tweets.herokuapp.com/twits'
+            axios.get(tempUrl, {
                 params: {
                     user_name: userName
                 }
