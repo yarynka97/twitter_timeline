@@ -1,0 +1,34 @@
+﻿.app{
+    width: 60%;
+    margin-left: 20%;
+}
+
+#input{
+    width:70%;
+    display: inline-block;
+    margin-right:1%
+}
+
+.name {
+    font-family: arial;
+}
+
+.twit .name {
+    color: #17a2b8;
+}
+
+.mistake .name{
+    color: darkred;
+}
+
+.date{
+    font-size:small;
+}
+
+.location{
+    font-size:small;
+}
+
+.text{
+    margin-top: 12px;
+}
