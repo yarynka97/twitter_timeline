@@ -18,9 +18,20 @@ var Tweet = function (userName, response) {
     Twitter.get('statuses/user_timeline', options, (err, data, res) => {
         if (!err && res.statusCode === 200) {
             response.send(filterTweets(data));
+        } else {
+            console.log("error"+err);
+            if (err.code === 34) {
+                response.send([{
+                    statusCode: 404,
+                    message: "Sorry, that user doesn't exist or the page is private"
+                }]);
             } else {
-                response.send(err);
+                response.send([{
+                    statusCode: 404,
+                    message: err.message
+                }]);
             }
+        }
     });
 
     function filterTweets(tweets) {
@@ -32,6 +43,7 @@ var Tweet = function (userName, response) {
                 });
             }
             return {
+                statusCode: 200,
                 id: tweet.id,
                 screenName: tweet.user.screen_name,
                 date: tweet.created_at,
