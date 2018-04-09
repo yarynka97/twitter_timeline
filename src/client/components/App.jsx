@@ -45,9 +45,6 @@ class App extends Component {
         var userName = document.getElementById("input").value;
         if (userName === '') {
             this.mistakeMessage('Enter users screen name, please');
-            this.setState({
-                buttonDisabled: false
-            });
         } else {                
             axios.get(config.serverUrl, {
                 params: {
@@ -60,12 +57,9 @@ class App extends Component {
                         class: 'twit card-body',
                         buttonDisabled: false
                     }) :
-                    this.mistakeMessage('No tweets yet', false);       
+                    this.mistakeMessage('No tweets yet', false);
             }).catch(err => {
                 this.mistakeMessage("Username doesn't exist or user is privat");
-                this.setState({
-                    buttonDisabled: false
-                });
             });
         }
     }
@@ -80,7 +74,8 @@ class App extends Component {
                 text: message,
                 imgUrl
             }],
-            class: 'mistake card-body'
+            class: 'mistake card-body',
+            buttonDisabled: false
         });
     }
 }
