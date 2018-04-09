@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios'
 
 import Timeline from './Timeline';
+const config = require('../config');
 
 class App extends Component {
     state = {
@@ -13,10 +14,16 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app card mb-3">
-                <div className="card-header">
-                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="form-control form-control-sm" placeholder="Enter username, please" />
-                    <button disabled={this.state.buttonDisabled} className="btn btn-primary btn-sm" onClick={this.findTweets}>Show</button>
+            <div className="app">
+                <div className="input">
+                    <div className="logo">
+                        <img src="http://logos-download.com/wp-content/uploads/2016/02/Twitter_logo_bird_transparent_png-700x568.png" />
+                    </div>
+                    <h1>Welcome to <br />Twitter timeline</h1>
+                    <p>Enter users screen name</p>
+                    <span className="tip"><b>Note</b>, if user is private, you can't get his tweets in this app</span>
+                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="" placeholder="Enter screen name, please" />
+                    <button disabled={this.state.buttonDisabled} className="btn btn-lg" onClick={this.findTweets}>Show</button>
                 </div>
                 <Timeline
                     tweets={this.state.tweets}
@@ -37,11 +44,12 @@ class App extends Component {
         });
         var userName = document.getElementById("input").value;
         if (userName === '') {
-            this.mistakeMessage('Enter username, please');
-        } else {
-            var tempUrl = 'http://localhost:8080/tweets';//'https://timeline-for-tweets.herokuapp.com/tweets'
-                
-            axios.get(tempUrl, {
+            this.mistakeMessage('Enter users screen name, please');
+            this.setState({
+                buttonDisabled: false
+            });
+        } else {                
+            axios.get(config.serverUrl, {
                 params: {
                     user_name: userName
                 }
@@ -66,11 +74,10 @@ class App extends Component {
         this.setState({
             tweets: [{
                 id: 1,
-                created_at: '',
-                user: {
-                    screen_name:'Some mistake'
-                },
-                text: message
+                date: '',
+                screenName:'Some mistake',
+                text: message,
+                imgUrl: [config.mistakeImg]
             }],
             class: 'mistake card-body'
         });
