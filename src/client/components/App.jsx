@@ -3,63 +3,82 @@ import ReactDOM from 'react-dom';
 import axios from 'axios'
 
 import Timeline from './Timeline';
-import config from '../../../etc/config';
+const config = require('../config');
 
 class App extends Component {
     state = {
-        twits: [],
-        class: ''
+        tweets: [],
+        class: '',
+        buttonDisabled: false
     }
 
     render() {
         return (
-            <div className="app card border-info mb-3">
-                <div className="card-header">
-                    <input id="input" type="text" required className="form-control form-control-sm" placeholder="Enter username, please" />
-                    <button className="btn btn-primary btn-sm" onClick={this.findTwits}>Show</button>
+            <div className="app">
+                <div className="input">
+                    <div className="logo">
+                        <img src={config.logo} />
+                    </div>
+                    <h1>Welcome to <br />Twitter timeline</h1>
+                    <p>Enter users screen name</p>
+                    <span className="tip"><b>Note</b>, if user is private, you can't get his tweets in this app</span>
+                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="" placeholder="Enter screen name, please" />
+                    <button disabled={this.state.buttonDisabled} className="btn btn-lg" onClick={this.findTweets}>Show</button>
                 </div>
                 <Timeline
-                    twits={this.state.twits}
+                    tweets={this.state.tweets}
                     className={this.state.class}
                 />
             </div>
         )
     }
 
-    findTwits = () => {
+    handleEnter = (event) => {
+        if (event.charCode === 13 && !this.state.buttonDisabled)
+            this.findTweets();
+    }
+
+    findTweets = () => {
+        this.setState({
+            buttonDisabled: true
+        });
         var userName = document.getElementById("input").value;
         if (userName === '') {
-            this.mistakeMessage('Enter username, please');
-        } else {
-            var tempUrl = 'https://timeline-for-tweets.herokuapp.com/twits'
-            axios.get(tempUrl, {
+            this.mistakeMessage('Enter users screen name, please');
+            this.setState({
+                buttonDisabled: false
+            });
+        } else {                
+            axios.get(config.serverUrl, {
                 params: {
                     user_name: userName
                 }
             }).then(res => {
-                if (res.data[0].user.screen_name === userName) {
+                if (res.data[0].statusCode === 200) {
                     this.setState({
-                        twits: res.data,
+                        tweets: res.data,
                         class: 'twit card-body'
                     });
+                } else {
+                    this.mistakeMessage(res.data[0].message);
                 }
-                }).catch(err => {
-                    this.mistakeMessage("This username doesn't exist. Please, enter real username");
+                this.setState({
+                    buttonDisabled: false
+                });
+            }).catch(err => {
+                this.mistakeMessage(err.message);
             });
         }
     }
 
     mistakeMessage = (message) => {
-        var date = new Date();
         this.setState({
-            twits: [{
+            tweets: [{
                 id: 1,
-                created_at: date.toString(),
-                user: {
-                    screen_name:'Some mistake',
-                    location: 'here'
-                },
-                text: message
+                date: '',
+                screenName:'Error',
+                text: message,
+                imgUrl: [config.mistakeImg]
             }],
             class: 'mistake card-body'
         });

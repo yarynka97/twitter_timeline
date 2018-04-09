@@ -1,32 +1,118 @@
-﻿.app{
-    width: 60%;
-    margin-left: 20%;
+﻿body {
+    background-color: #21b2fe;
+    z-index:1;
 }
 
-#input{
-    width:70%;
-    display: inline-block;
-    margin-right:1%
+.timeline {
+    width: 100%
+}
+
+.input {
+    width: 35%;
+    background-color: white;
+    box-shadow: 2px 0 20px grey;
+    height: 120vh;
+    padding: 2% 4%;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+}
+
+#input {
+    border-color: #717274;
+    font-size: 1.25rem;
+    line-height: normal;
+    padding: .75rem;
+    border: 1px solid #a0a0a2;
+    border-radius: .25rem;
+    color: #2c2d30;
+    width: 100%;
+    max-width: 100%;
+    margin: .5rem 0;
+    transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    box-shadow: none;
+    height: auto;
+}
+
+button {
+    background-color: #21b2fe;
+    border-color: #21b2fe;
+    color: snow;
+    font-family: sans-serif;
+    margin-top: 10%;
+    width: 30%;
+    margin-left: 36%;
+}
+    button:hover {
+        background-color: snow;
+        border-color: #21b2fe;
+        color: #21b2fe;
+    }
+
+h1 {
+    display: block;
+    font-size: 42px;
+    font-weight: 100;
+    line-height: 48px;
+    margin-top: 10%;
+    margin-bottom: 0;
+    letter-spacing: -2px;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+}
+.input p {
+    letter-spacing: -0.5px;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    font-size: 30px;
+    margin-bottom: 5rem;
+}
+
+.logo img {
+    width: 25%;
+    margin: 2% 0 10%;
+}
+
+.tip {
+    font-weight: 400;
+    margin: 0 0 .25rem;
+    display: block;
+    font-size: small;
+    line-height: 1.5rem;
 }
 
 .name {
+    display: inline-block;
+    margin-right:20px;
     font-family: arial;
 }
 
+.image{
+    width:100%
+}
+
 .twit .name {
-    color: #17a2b8;
+
+    color: #21b2fe;
+}
+
+.twit-post-box {
+    margin-top: 2%;
+    width: 50%;
+    margin-left: 43%;
+    box-shadow: 4px -2px 20px grey
 }
 
 .mistake .name{
     color: darkred;
 }
 
-.date{
-    font-size:small;
-}
+.mistake .text{
+    margin-bottom: 5px;
+    font-size:2rem
+} 
 
-.location{
-    font-size:small;
+.date {
+    color: #cccccc;
+    font-size: small;
 }
 
 .text{
