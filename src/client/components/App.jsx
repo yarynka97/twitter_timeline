@@ -54,7 +54,7 @@ class App extends Component {
                     user_name: userName
                 }
             }).then(res => {
-                res.length > 0 ?
+                res.data.length > 0 ?
                     this.setState({
                         tweets: res.data,
                         class: 'twit card-body',

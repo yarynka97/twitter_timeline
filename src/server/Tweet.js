@@ -27,7 +27,6 @@ var Tweet = function (userName, response) {
                 });
             }
             return {
-                statusCode: 200,
                 id: tweet.id,
                 screenName: tweet.user.screen_name,
                 date: tweet.created_at,
