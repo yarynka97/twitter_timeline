@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios'
 
 import Timeline from './Timeline';
-const config = require('../config');
+const config = require('../../config');
 
 class App extends Component {
     state = {
@@ -20,9 +20,9 @@ class App extends Component {
                         <img src={config.logo} />
                     </div>
                     <h1>Welcome to <br />Twitter timeline</h1>
-                    <p>Enter users screen name</p>
+                    <p>Enter username</p>
                     <span className="tip"><b>Note</b>, if user is private, you can't get his tweets in this app</span>
-                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="" placeholder="Enter screen name, please" />
+                    <input id="input" type="text" onKeyPress={this.handleEnter} required className="" placeholder="Enter username, please" />
                     <button disabled={this.state.buttonDisabled} className="btn btn-lg" onClick={this.findTweets}>Show</button>
                 </div>
                 <Timeline
@@ -54,31 +54,31 @@ class App extends Component {
                     user_name: userName
                 }
             }).then(res => {
-                if (res.data[0].statusCode === 200) {
+                res.length > 0 ?
                     this.setState({
                         tweets: res.data,
-                        class: 'twit card-body'
-                    });
-                } else {
-                    this.mistakeMessage(res.data[0].message);
-                }
+                        class: 'twit card-body',
+                        buttonDisabled: false
+                    }) :
+                    this.mistakeMessage('No tweets yet', false);       
+            }).catch(err => {
+                this.mistakeMessage("Username doesn't exist or user is privat");
                 this.setState({
                     buttonDisabled: false
                 });
-            }).catch(err => {
-                this.mistakeMessage(err.message);
             });
         }
     }
 
-    mistakeMessage = (message) => {
+    mistakeMessage = (message, isError=true) => {
+        let imgUrl = isError ? [config.mistakeImg] : [];
         this.setState({
             tweets: [{
                 id: 1,
                 date: '',
-                screenName:'Error',
+                screenName:'Ooops',
                 text: message,
-                imgUrl: [config.mistakeImg]
+                imgUrl
             }],
             class: 'mistake card-body'
         });
