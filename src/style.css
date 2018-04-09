@@ -105,6 +105,11 @@ h1 {
     color: darkred;
 }
 
+.mistake .text{
+    margin-bottom: 5px;
+    font-size:2rem
+} 
+
 .date {
     color: #cccccc;
     font-size: small;

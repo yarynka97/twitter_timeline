@@ -17,7 +17,7 @@ class App extends Component {
             <div className="app">
                 <div className="input">
                     <div className="logo">
-                        <img src="http://logos-download.com/wp-content/uploads/2016/02/Twitter_logo_bird_transparent_png-700x568.png" />
+                        <img src={config.logo} />
                     </div>
                     <h1>Welcome to <br />Twitter timeline</h1>
                     <p>Enter users screen name</p>
@@ -54,18 +54,19 @@ class App extends Component {
                     user_name: userName
                 }
             }).then(res => {
-                if (res.data[0].screenName === userName) {
+                if (res.data[0].statusCode === 200) {
                     this.setState({
                         tweets: res.data,
-                        class: 'twit card-body',
-                        buttonDisabled: false
+                        class: 'twit card-body'
                     });
+                } else {
+                    this.mistakeMessage(res.data[0].message);
                 }
+                this.setState({
+                    buttonDisabled: false
+                });
             }).catch(err => {
-                    this.mistakeMessage("Server Error");
-                    this.setState({
-                        buttonDisabled: false
-                    });
+                this.mistakeMessage(err.message);
             });
         }
     }
@@ -75,7 +76,7 @@ class App extends Component {
             tweets: [{
                 id: 1,
                 date: '',
-                screenName:'Some mistake',
+                screenName:'Error',
                 text: message,
                 imgUrl: [config.mistakeImg]
             }],
