@@ -1,11 +1,6 @@
 ﻿const Twit = require('twit');
 
-const keys = {
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token: process.env.ACCES_TOKEN,
-    access_token_secret: process.env.ACCES_TOKEN_SECRET
-}
+const keys = require('../config').twitterKeys;
 
 var Tweet = function (userName, response) {
     const Twitter = new Twit(keys);
@@ -19,18 +14,7 @@ var Tweet = function (userName, response) {
         if (!err && res.statusCode === 200) {
             response.send(filterTweets(data));
         } else {
-            console.log("error"+err);
-            if (err.code === 34) {
-                response.send([{
-                    statusCode: 404,
-                    message: "Sorry, that user doesn't exist or the page is private"
-                }]);
-            } else {
-                response.send([{
-                    statusCode: 404,
-                    message: err.message
-                }]);
-            }
+            response.status(404).send(err);
         }
     });
 
@@ -43,7 +27,6 @@ var Tweet = function (userName, response) {
                 });
             }
             return {
-                statusCode: 200,
                 id: tweet.id,
                 screenName: tweet.user.screen_name,
                 date: tweet.created_at,
