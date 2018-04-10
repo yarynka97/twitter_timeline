@@ -34,11 +34,19 @@
     height: auto;
 }
 
+.link {
+    text-decoration: none;
+    color: snow;
+    font-family: sans-serif;
+}
+    .link:hover {
+        text-decoration: none;
+        color: #21b2fe;
+    }
+
 button {
     background-color: #21b2fe;
     border-color: #21b2fe;
-    color: snow;
-    font-family: sans-serif;
     margin-top: 10%;
     width: 30%;
     margin-left: 36%;
@@ -46,8 +54,8 @@ button {
     button:hover {
         background-color: snow;
         border-color: #21b2fe;
-        color: #21b2fe;
     }
+
 
 h1 {
     display: block;
