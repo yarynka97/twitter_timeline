@@ -4,8 +4,8 @@
   "description": "Timeline for twitter posts",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode development && node src/server/index.js",
-    "test": "echo \"No test specified\" && exit 0"
+    "start": "node src/server/index.js",
+    "build": "webpack --mode development"
   },
   "keywords": [],
   "author": "Yaryna Shyika",

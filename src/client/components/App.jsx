@@ -44,7 +44,7 @@ class App extends Component {
         });
         var userName = document.getElementById("input").value;
         if (userName === '') {
-            this.mistakeMessage('Enter users screen name, please');
+            this.mistakeMessage('Enter username, please');
         } else {                
             axios.get(config.serverUrl, {
                 params: {
