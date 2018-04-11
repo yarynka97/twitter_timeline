@@ -35,4 +35,4 @@ When notification appears, open web page at http://localhost:8080
 
 ## Heruko
 
-This app is also deployed at Heruko (https://timeline-for-tweets.herokuapp.com/). App automatically deploys after every merge to master at GitHub.
+This app is also deployed at Heroku (https://timeline-for-tweets.herokuapp.com/). App automatically deploys after every merge to master at GitHub.
