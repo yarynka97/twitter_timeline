@@ -12,7 +12,9 @@ app.get('/api/tweets', (req, res) => {
     var userName = req.query.user_name;
 
     getTweets(userName).then(response => {
-        res.status(200).send(filterTweets(response.data));
+        response.data.errors ?
+            res.status(404).send("No user") :
+            res.status(200).send(filterTweets(response.data));
     });
 });
 

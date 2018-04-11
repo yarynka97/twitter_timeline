@@ -7,7 +7,7 @@ const getTweets = function (userName) {
     var userName = userName;
     var options = {
         screen_name: userName,
-        count: 100
+        count: 500
     }
 
     return Twitter.get('statuses/user_timeline', options);

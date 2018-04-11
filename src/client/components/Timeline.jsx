@@ -10,6 +10,7 @@ class Timeline extends Component {
         super(props);
 
         this.state = {
+            userName: '',
             tweets: [],
             class:''
         }
@@ -34,11 +35,17 @@ class Timeline extends Component {
             )
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.match.params.userName != nextProps.match.params.userName)
+            this.makeRequest(nextProps.match.params.userName);
+    }
+
     componentWillMount = () => {
-        const userName = this.props.match.params.userName;
-        if (userName === ':') {
-            this.mistakeMessage("You should enter username!");
-        } else {
+        this.makeRequest(this.props.match.params.userName);
+    }
+
+    makeRequest = (userName) => {
+        if (userName !='no-username') {
             axios.get(config.serverUrl, {
                 params: {
                     user_name: userName
@@ -53,6 +60,8 @@ class Timeline extends Component {
             }).catch(err => {
                 this.mistakeMessage("Username doesn't exist or user is privat");
             });
+        } else {
+            this.mistakeMessage("Enter username, please");
         }
     }
 

@@ -7,7 +7,7 @@ const config = require('../../config');
 
 class App extends Component {
     state = {
-        link: '/tweets/:'
+        link: '/tweets/no-username'
     }
 
     render() {
@@ -21,10 +21,10 @@ class App extends Component {
                     <h1>Welcome to <br />Twitter timeline</h1>
                     <p>Enter username</p>
                     <span className="tip"><b>Note</b>, if user is private, you can't get his tweets in this app</span>
-                    <input id="input" type="text" onKeyPress={this.handleKeyPress} required className="" placeholder="Enter username, please" />
-                    <button disabled={this.state.buttonDisabled} className="btn btn-lg">
-                        <Link className="link" to={this.state.link}>Show</Link>
-                    </button>
+                    <input id="input" type="text" onKeyUp={this.handleKeyUp} required className="" placeholder="Enter username, please" />
+                    <Link className="link" to={this.state.link}>
+                        <button disabled={this.state.buttonDisabled} className="btn btn-lg">Show</button>
+                    </Link>
                 </div>
                 <Route path="/tweets/:userName" component={Timeline} />
             </div>
@@ -32,12 +32,10 @@ class App extends Component {
         )
     }
 
-    handleKeyPress = (event) => {
+    handleKeyUp = (event) => {
         var userName = document.getElementById("input").value;
-        userName === '' ?
-            this.setState({ link: '/tweets/:' }) :
-            this.setState({ link: '/tweets/' + userName });
-
+        if (userName === '') userName = 'no-username';
+        this.setState({ link: '/tweets/' + userName });
     }
 
 }
