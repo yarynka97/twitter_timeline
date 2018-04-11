@@ -31,6 +31,12 @@ That's all, your project is ready for use!
 To run server enter
 
 ```bash
+npm run server
+```
+
+If you want build project and run server at one time then use 
+
+```bash
 npm start
 ```
 
