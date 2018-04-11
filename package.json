@@ -4,7 +4,7 @@
   "description": "Timeline for twitter posts",
   "main": "index.js",
   "scripts": {
-    "start": "npm build && npm run server",
+    "start": "webpack --mode development && node src/server/index.js",
     "server": "node src/server/index.js",
     "build": "webpack --mode development"
   },
