@@ -1,18 +1,18 @@
-﻿import React, { Component } from 'react';
+﻿/// <reference path="../index.js" />
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 import Timeline from './Timeline';
 const config = require('../../config');
 
 class App extends Component {
     state = {
-        link: '/tweets/:'
+        link: '/tweets/'
     }
 
     render() {
         return (
-            <Router>
             <div className="app">
                 <div className="input">
                     <div className="logo">
@@ -22,22 +22,20 @@ class App extends Component {
                     <p>Enter username</p>
                     <span className="tip"><b>Note</b>, if user is private, you can't get his tweets in this app</span>
                     <input id="input" type="text" onKeyPress={this.handleKeyPress} required className="" placeholder="Enter username, please" />
-                    <button disabled={this.state.buttonDisabled} className="btn btn-lg">
-                        <Link className="link" to={this.state.link}>Show</Link>
-                    </button>
+                    <Link className="link" to={this.state.link}><button disabled={this.state.buttonDisabled} className="btn btn-lg">
+                        Show
+                    </button></Link>
                 </div>
+                <Route path="/" component={Timeline} />
+                <Route path="/:way" component={Timeline} />
                 <Route path="/tweets/:userName" component={Timeline} />
             </div>
-            </Router>
         )
     }
 
     handleKeyPress = (event) => {
         var userName = document.getElementById("input").value;
-        userName === '' ?
-            this.setState({ link: '/tweets/:' }) :
-            this.setState({ link: '/tweets/' + userName });
-
+        this.setState({ link: '/tweets/' + userName });
     }
 
 }

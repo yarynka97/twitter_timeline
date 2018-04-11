@@ -36,12 +36,9 @@
 
 .link {
     text-decoration: none;
-    color: snow;
-    font-family: sans-serif;
 }
     .link:hover {
         text-decoration: none;
-        color: #21b2fe;
     }
 
 button {
@@ -50,10 +47,13 @@ button {
     margin-top: 10%;
     width: 30%;
     margin-left: 36%;
+    color: snow;
+    font-family: sans-serif;
 }
     button:hover {
         background-color: snow;
         border-color: #21b2fe;
+        color: #21b2fe;
     }
 
 

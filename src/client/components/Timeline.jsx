@@ -35,24 +35,27 @@ class Timeline extends Component {
     }
 
     componentWillMount = () => {
-        const userName = this.props.match.params.userName;
-        if (userName === ':') {
-            this.mistakeMessage("You should enter username!");
-        } else {
-            axios.get(config.serverUrl, {
-                params: {
-                    user_name: userName
-                }
-            }).then(res => {
-                res.data.length > 0 ?
-                    this.setState({
-                        tweets: res.data,
-                        class: 'twit card-body'
-                    }) :
-                    this.mistakeMessage('No tweets yet', false);
-            }).catch(err => {
-                this.mistakeMessage("Username doesn't exist or user is privat");
-            });
+        const way = this.props.match.params.way;
+        if (way === 'tweets') {
+            const userName = this.props.match.params.userName;
+            if (userName) {
+                axios.get(config.serverUrl, {
+                    params: {
+                        user_name: userName
+                    }
+                }).then(res => {
+                    res.data.length > 0 ?
+                        this.setState({
+                            tweets: res.data,
+                            class: 'twit card-body'
+                        }) :
+                        this.mistakeMessage('No tweets yet', false);
+                }).catch(err => {
+                    this.mistakeMessage("Username doesn't exist or user is privat");
+                });
+            } else {
+                this.mistakeMessage("Enter username, please");
+            }
         }
     }
 
