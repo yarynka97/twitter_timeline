@@ -11,7 +11,7 @@ class Timeline extends Component {
 
         this.state = {
             tweets: [],
-            class:''
+            class: ''
         }
     }
 
@@ -27,35 +27,32 @@ class Timeline extends Component {
                                 tweet={tweet}
                                 className={this.state.class}
                             />
-                            )
+                        )
                     })
                 }
             </div>
-            )
+        )
     }
 
     componentWillMount = () => {
-        const way = this.props.match.params.way;
-        if (way === 'tweets') {
-            const userName = this.props.match.params.userName;
-            if (userName) {
-                axios.get(config.serverUrl, {
-                    params: {
-                        user_name: userName
-                    }
-                }).then(res => {
-                    res.data.length > 0 ?
-                        this.setState({
-                            tweets: res.data,
-                            class: 'twit card-body'
-                        }) :
-                        this.mistakeMessage('No tweets yet', false);
-                }).catch(err => {
-                    this.mistakeMessage("Username doesn't exist or user is privat");
-                });
-            } else {
-                this.mistakeMessage("Enter username, please");
-            }
+        const userName = this.props.match.params.userName;
+        if (userName) {
+            axios.get(config.serverUrl, {
+                params: {
+                    user_name: userName
+                }
+            }).then(res => {
+                res.data.length > 0 ?
+                    this.setState({
+                        tweets: res.data,
+                        class: 'twit card-body'
+                    }) :
+                    this.mistakeMessage('No tweets yet', false);
+            }).catch(err => {
+                this.mistakeMessage("Username doesn't exist or user is privat");
+            });
+        } else {
+            this.mistakeMessage("You should enter username!");
         }
     }
 
