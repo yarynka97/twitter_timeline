@@ -1,6 +1,6 @@
 ﻿module.exports={
   "mistakeImg": "http://i2.cdn.turner.com/money/dam/assets/141224103109-investor-mistake-1024x576.jpg",
-  "logo": "http://logos-download.com/wp-content/uploads/2016/02/Twitter_logo_bird_transparent_png-700x568.png",
+  "logo": "https://icon2.kisspng.com/20171220/gze/twitter-logo-png-5a3a1851372e76.0876249315137567532269680.jpg",
   "serverUrl": "https://timeline-for-tweets.herokuapp.com/api/tweets",
   "twitterKeys": {
       consumer_key: process.env.CONSUMER_KEY,
